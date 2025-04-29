@@ -1,29 +1,36 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import fetchApi from '../api/fetchApi';
+import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import fetchApi from "../api/fetchApi";
+import { AuthContext } from "../context/AuthContext";
 
 function Login() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [error, setError] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
+  const { setIsAuthenticated } = useContext(AuthContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
 
     try {
-      await fetchApi.post('/auth/login', { name, email });
-      navigate('/search'); // Redirect to search page on success
+      await fetchApi.post("/auth/login", { name, email });
+
+      setIsAuthenticated(true);
+      navigate("/search");
     } catch (err) {
-      setError('Login failed. Please check your credentials.');
+      setError("Login failed. Please check your credentials.");
       console.error(err);
     }
   };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <form onSubmit={handleSubmit} className="bg-white p-8 rounded shadow-md w-full max-w-sm">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white p-8 rounded shadow-md w-full max-w-sm"
+      >
         <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
 
         {error && (

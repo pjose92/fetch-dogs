@@ -1,8 +1,8 @@
 import { useEffect, useState, useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 import fetchApi from "../api/fetchApi";
 import { FavoritesContext } from "../context/FavoritesContext";
-import './Search.css';
-
+import "./Search.css";
 
 function Search() {
   const { favorites, addFavorite, removeFavorite } =
@@ -103,6 +103,16 @@ function Search() {
   const isFavorited = (dogId) => {
     return favorites.some((fav) => fav.id === dogId);
   };
+
+  const { isAuthenticated } = useContext(AuthContext);
+
+  if (!isAuthenticated) {
+    return (
+      <div style={{ padding: "2rem", textAlign: "center", fontSize: "1.5rem" }}>
+        You must be logged in to see pets!
+      </div>
+    );
+  }
 
   return (
     <div className="search-container">
