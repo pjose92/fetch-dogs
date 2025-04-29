@@ -1,9 +1,9 @@
 import { useEffect, useState, useContext } from 'react';
 import fetchApi from '../api/fetchApi';
-import { FavoritesContext } from '../context/FavoritesContext'; // ✅ Import your context
+import { FavoritesContext } from '../context/FavoritesContext'; 
 
 function Search() {
-  const { favorites, addFavorite, removeFavorite } = useContext(FavoritesContext); // ✅ Use favorites context
+  const { favorites, addFavorite, removeFavorite } = useContext(FavoritesContext);
 
   const [breeds, setBreeds] = useState([]);
   const [selectedBreed, setSelectedBreed] = useState('');
