@@ -1,7 +1,8 @@
-import { useContext, useState } from 'react';
-import fetchApi from '../api/fetchApi';
-import { FavoritesContext } from '../context/FavoritesContext';
-import './Favorites.css';
+import { useContext, useState } from "react";
+import { AuthContext } from "../context/AuthContext";
+import fetchApi from "../api/fetchApi";
+import { FavoritesContext } from "../context/FavoritesContext";
+import "./Favorites.css";
 
 function Favorites() {
   const { favorites, removeFavorite } = useContext(FavoritesContext);
@@ -9,21 +10,31 @@ function Favorites() {
 
   const handleMatch = async () => {
     try {
-      const favoriteIds = favorites.map(dog => dog.id);
+      const favoriteIds = favorites.map((dog) => dog.id);
       if (favoriteIds.length === 0) {
-        alert('You need to favorite some dogs first!');
+        alert("You need to favorite some dogs first!");
         return;
       }
 
-      const res = await fetchApi.post('/dogs/match', favoriteIds);
+      const res = await fetchApi.post("/dogs/match", favoriteIds);
       const matchedId = res.data.match;
 
-      const dogRes = await fetchApi.post('/dogs', [matchedId]);
+      const dogRes = await fetchApi.post("/dogs", [matchedId]);
       setMatchedDog(dogRes.data[0]);
     } catch (err) {
-      console.error('Error finding match:', err);
+      console.error("Error finding match:", err);
     }
   };
+
+  const { isAuthenticated } = useContext(AuthContext);
+
+  if (!isAuthenticated) {
+    return (
+      <div style={{ padding: "2rem", textAlign: "center", fontSize: "1.5rem" }}>
+        You must be logged in to see favorites!
+      </div>
+    );
+  }
 
   return (
     <div className="favorites-container">
@@ -40,14 +51,18 @@ function Favorites() {
                 <p>Breed: {dog.breed}</p>
                 <p>Age: {dog.age}</p>
                 <p>Zip: {dog.zip_code}</p>
-                <button onClick={() => removeFavorite(dog.id)} className="remove-button">
+                <button
+                  onClick={() => removeFavorite(dog.id)}
+                  className="remove-button">
                   🗑 Remove
                 </button>
               </div>
             </div>
           ))
         ) : (
-          <p className="no-favorites">No favorite dogs yet. Go add some from the Search page!</p>
+          <p className="no-favorites">
+            No favorite dogs yet. Go add some from the Search page!
+          </p>
         )}
       </div>
 
