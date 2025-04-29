@@ -8,10 +8,12 @@ import {
 import { useContext } from "react";
 import { FavoritesProvider } from "./context/FavoritesContext";
 import { AuthProvider, AuthContext } from "./context/AuthContext";
+import ProtectedRoute from "./components/ProtectedRoute";
 import fetchApi from "./api/fetchApi";
-import Login from "./pages/Login";
-import Search from "./pages/Search";
-import Favorites from "./pages/Favorites";
+import Login from "./pages/Login/Login";
+import Search from "./pages/Search/Search";
+import Favorites from "./pages/Favorites/Favorites";
+import Navbar from "./components/Navbar/Navbar";
 
 function AppContent() {
   const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
@@ -30,53 +32,27 @@ function AppContent() {
   return (
     <>
       {/* Navigation Bar */}
-      <nav
-        style={{
-          padding: "1rem",
-          backgroundColor: "#f0f0f0",
-          display: "flex",
-          justifyContent: "center",
-          gap: "2rem",
-          marginBottom: "2rem",
-        }}>
-        {!isAuthenticated && (
-          <Link to="/" style={{ textDecoration: "none", fontWeight: "bold" }}>
-            Login
-          </Link>
-        )}
-
-        {isAuthenticated && (
-          <>
-            <Link
-              to="/search"
-              style={{ textDecoration: "none", fontWeight: "bold" }}>
-              Search Dogs
-            </Link>
-            <Link
-              to="/favorites"
-              style={{ textDecoration: "none", fontWeight: "bold" }}>
-              Favorites
-            </Link>
-            <button
-              onClick={handleLogout}
-              style={{
-                background: "transparent",
-                border: "none",
-                fontWeight: "bold",
-                cursor: "pointer",
-                color: "blue",
-              }}>
-              Logout
-            </button>
-          </>
-        )}
-      </nav>
+      <Navbar />
 
       {/* Pages */}
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/search" element={<Search />} />
-        <Route path="/favorites" element={<Favorites />} />
+        <Route
+          path="/search"
+          element={
+            <ProtectedRoute>
+              <Search />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/favorites"
+          element={
+            <ProtectedRoute>
+              <Favorites />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </>
   );

@@ -1,0 +1,23 @@
+.navbar {
+    padding: 1rem;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .nav-link {
+    text-decoration: none;
+    font-weight: bold;
+    color: #000;
+  }
+  
+  .nav-button {
+    background: transparent;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    color: blue;
+  }
+  
