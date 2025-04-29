@@ -1,11 +1,12 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import fetchApi from "../../api/fetchApi";
 import { FavoritesContext } from "../../context/FavoritesContext";
 import "./Favorites.css";
 
 function Favorites() {
-  const { favorites, removeFavorite } = useContext(FavoritesContext);
+  const { favorites, removeFavorite, setFavorites } = useContext(FavoritesContext);
+  const { isAuthenticated } = useContext(AuthContext);
   const [matchedDog, setMatchedDog] = useState(null);
 
   const handleMatch = async () => {
@@ -26,7 +27,24 @@ function Favorites() {
     }
   };
 
-  const { isAuthenticated } = useContext(AuthContext);
+  const handleClearFavorites = () => {
+    const confirmClear = window.confirm("Are you sure you want to clear all favorites?");
+    if (confirmClear) {
+      setFavorites([]);
+    }
+  };
+
+  // ESC key closes modal
+  useEffect(() => {
+    const handleEsc = (e) => {
+      if (e.key === "Escape") {
+        setMatchedDog(null);
+      }
+    };
+
+    window.addEventListener("keydown", handleEsc);
+    return () => window.removeEventListener("keydown", handleEsc);
+  }, []);
 
   if (!isAuthenticated) {
     return (
@@ -66,22 +84,37 @@ function Favorites() {
         )}
       </div>
 
-      {/* Match Button */}
+      {/* Match & Clear Buttons */}
       {favorites.length > 0 && (
         <div className="match-button">
           <button onClick={handleMatch}>🐾 Find My Match!</button>
+          <button
+            onClick={handleClearFavorites}
+            className="clear-button"
+            style={{ marginLeft: "1rem" }}>
+            🗑 Clear Favorites
+          </button>
         </div>
       )}
 
-      {/* Show Matched Dog */}
+      {/* Match Modal */}
       {matchedDog && (
-        <div className="matched-dog">
-          <h3>🎉 Your Matched Dog!</h3>
-          <img src={matchedDog.img} alt={matchedDog.name} />
-          <h4>{matchedDog.name}</h4>
-          <p>Breed: {matchedDog.breed}</p>
-          <p>Age: {matchedDog.age}</p>
-          <p>Zip: {matchedDog.zip_code}</p>
+        <div className="overlay" onClick={() => setMatchedDog(null)}>
+          <div
+            className="matched-dog-card"
+            onClick={(e) => e.stopPropagation()}>
+            <h3>🎉 Your Matched Dog!</h3>
+            <img src={matchedDog.img} alt={matchedDog.name} />
+            <h4>{matchedDog.name}</h4>
+            <p>Breed: {matchedDog.breed}</p>
+            <p>Age: {matchedDog.age}</p>
+            <p>Zip: {matchedDog.zip_code}</p>
+            <button
+              onClick={() => setMatchedDog(null)}
+              className="close-button">
+              ✖ Close
+            </button>
+          </div>
         </div>
       )}
     </div>

@@ -6,16 +6,19 @@ export const FavoritesProvider = ({ children }) => {
   const [favorites, setFavorites] = useState([]);
 
   const addFavorite = (dog) => {
-    setFavorites(prev => [...prev, dog]);
+    if (!favorites.some((f) => f.id === dog.id)) {
+      setFavorites((prev) => [...prev, dog]);
+    }
   };
 
-  const removeFavorite = (dogId) => {
-    setFavorites(prev => prev.filter(d => d.id !== dogId));
+  const removeFavorite = (id) => {
+    setFavorites((prev) => prev.filter((dog) => dog.id !== id));
   };
 
   return (
-    <FavoritesContext.Provider value={{ favorites, addFavorite, removeFavorite }}>
+    <FavoritesContext.Provider value={{ favorites, addFavorite, removeFavorite, setFavorites }}>
       {children}
     </FavoritesContext.Provider>
   );
 };
+
