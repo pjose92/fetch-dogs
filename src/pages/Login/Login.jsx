@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import fetchApi from "../api/fetchApi";
-import { AuthContext } from "../context/AuthContext";
+import fetchApi from "../../api/fetchApi";
+import { AuthContext } from "../../context/AuthContext";
 
 function Login() {
   const [name, setName] = useState("");

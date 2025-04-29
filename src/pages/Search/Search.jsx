@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
-import fetchApi from "../api/fetchApi";
-import { FavoritesContext } from "../context/FavoritesContext";
+import { AuthContext } from "../../context/AuthContext";
+import fetchApi from "../../api/fetchApi";
+import { FavoritesContext } from "../../context/FavoritesContext";
 import "./Search.css";
 
 function Search() {
