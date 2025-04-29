@@ -1,0 +1,117 @@
+.search-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+  
+  .search-title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .search-controls {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+  }
+  
+  .search-controls input,
+  .search-controls select {
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    min-width: 250px;
+  }
+  
+  .search-controls select {
+    min-width: 200px;
+  }
+  
+  .search-controls button {
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .dogs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+  }
+  
+  .dog-card {
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .dog-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .dog-details {
+    padding: 1rem;
+  }
+  
+  .favorite-button,
+  .remove-favorite-button {
+    padding: 0.5rem 1rem;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  .favorite-button {
+    background-color: #2196F3;
+  }
+  
+  .remove-favorite-button {
+    background-color: #f44336;
+  }
+  
+  .no-dogs {
+    grid-column: 1 / -1;
+    text-align: center;
+    font-size: 1.2rem;
+  }
+  
+  .pagination-buttons {
+    margin-top: 2rem;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+  }
+  
+  .pagination-buttons button {
+    padding: 0.75rem 1.5rem;
+    color: white;
+    border: none;
+    border-radius: 8px;
+  }
+  
+  .pagination-buttons button.enabled {
+    background-color: #1976D2;
+    cursor: pointer;
+  }
+  
+  .pagination-buttons button.disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
