@@ -1,12 +1,89 @@
-# React + Vite
+# 🐶 Fetch Dogs – Adopt a New Best Friend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a React-based dog adoption search app built for the Fetch Take-Home assignment.  
+Users can log in, browse adoptable dogs, save favorites, and get matched with a dog.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🔧 Tech Stack
 
-## Expanding the ESLint configuration
+- **React** (via Vite)
+- **React Router**
+- **Axios** (for API requests)
+- **Context API** (for global auth and favorites state)
+- **CSS Modules / Plain CSS** (component-based styling)
+- **Fetch.com API** (provided for take-home evaluation)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🏁 Getting Started
+
+### 1. Clone the repo
+
+```bash
+git clone https://github.com/your-username/fetch-dogs.git
+cd fetch-dogs
+```
+
+### 2. Install dependencies
+
+```bash
+npm install
+```
+
+### 3. Start the development server
+
+```bash
+npm run dev
+```
+
+The app should now be running on:  
+[http://localhost:5173](http://localhost:5173)
+
+---
+
+## ✅ How to Use
+
+1. **Log In** using any name + email (required to authenticate).
+2. **Browse dogs** by breed — sorted alphabetically by default.
+3. **Add to favorites** using the heart button.
+4. **Click "Find My Match!"** to receive a dog match.
+5. **View the match** in a styled modal overlay.
+6. **Remove or clear favorites** at any time.
+
+---
+
+## 📁 Project Structure
+
+```
+src/
+├── api/                 # Axios config for Fetch API
+├── components/          # Navbar, ProtectedRoute, etc.
+├── context/             # Global state: Auth & Favorites
+├── pages/               # Login, Search, Favorites views
+├── styles/              # Per-component CSS files
+├── App.jsx              # Main app structure + routing
+└── main.jsx             # Entry point
+```
+
+---
+
+## ⚙ Developer Notes
+
+- Project uses Vite for fast dev experience
+- API calls require `withCredentials: true` for auth cookies
+- Protected routes use `<ProtectedRoute>` to restrict access
+- Match result is shown in a centered modal that can be closed via click or ESC
+- `FavoritesContext` and `AuthContext` manage global app state
+
+---
+
+## 🧪 Tips for New Developers
+
+- Start by exploring `App.jsx` to see how routes and contexts are wired up
+- Check `fetchApi.js` inside `api/` for how authenticated requests work
+- CSS is modularized by page/component under `/styles`
+- Matching logic and modal are inside `Favorites.jsx`
+
+---
+
